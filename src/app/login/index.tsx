@@ -2,12 +2,11 @@ import * as Icons from "@/components/com/icons";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useTheme } from "@/components/theme-provider";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -20,6 +19,7 @@ export function Login() {
 		resolver: zodResolver(zLoginSchema()),
 		defaultValues: {
 			username: "",
+			password: "",
 		},
 	});
 
@@ -57,7 +57,7 @@ export function Login() {
 									<FormItem>
 										<FormLabel>Usuario</FormLabel>
 										<FormControl>
-											<Input placeholder="Usuario" {...field} />
+											<Input placeholder="Usuario" {...field} variant="inverse" />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -70,13 +70,13 @@ export function Login() {
 									<FormItem>
 										<FormLabel>Contraseña</FormLabel>
 										<FormControl>
-											<Input placeholder="Contraseña" {...field} />
+											<Input placeholder="Contraseña" {...field} variant="inverse" />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-							<Button type="submit" variant="secondary" className="justify-self-end">
+							<Button type="submit" variant="inverse" className="justify-self-end">
 								Iniciar sesión <LogIn />
 							</Button>
 						</form>

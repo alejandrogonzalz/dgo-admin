@@ -48,33 +48,15 @@ const NavbarSmallDevices = ({ isScrolled }: { isScrolled: boolean }) => {
 		<nav
 			className={cn(
 				"absolute top-0 z-40 flex h-[45px] w-full items-center justify-between px-5 py-3 lg:hidden",
-				"duration-400 transition-colors sm:h-[60px]",
+				"duration-400 border border-l-0 border-r-0 border-t-0 border-b-sidebar-border transition-colors sm:h-[60px]",
 				{
 					"bg-sidebar": !isScrolled,
 					"bg-sidebar/70 backdrop-blur-sm": isScrolled,
 				},
 			)}
 		>
-			<div className="flex items-center gap-2">
-				<div className="flex items-center justify-center">
-					<Icons.DentalGoLogo size={24} color={isScrolled ? "#000000" : "#ffffff"} />
-				</div>
-				<div className="flex items-center justify-center">
-					<Icons.DentalGoText size={24} color={isScrolled ? "#000000" : "#ffffff"} />
-				</div>
-			</div>
-
-			<div>
-				<div
-					className={cn("group peer grid place-content-center rounded-sm p-[3px]", {
-						"text-primary-gray backdrop-blur-sm hover:bg-primary-gray/10 active:bg-primary-gray/10": !isScrolled,
-						"text-bg-stone-900 hover:bg-stone-900/10 active:bg-stone-900/10": isScrolled,
-					})}
-					tabIndex={0}
-				>
-					<Icons.Menu className="aspect-square h-5" />
-				</div>
-			</div>
+			<SidebarTrigger className="text-sidebar-foreground" />
+			<ModeToggle />
 		</nav>
 	);
 };
