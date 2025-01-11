@@ -36,11 +36,15 @@ const imgSuperRefine = (file: File, ctx: z.RefinementCtx) => {
 export const zUploadServicesSchema = () =>
 	z.object({
 		file: z.instanceof(File, { message: "Debe ser un archivo válido." }).superRefine(imgSuperRefine),
-		service: z.string().min(1, { message: "El título es obligatorio." }),
-		price: z.number().min(0, { message: "El precio debe ser un número válido." }),
+		service: z
+			.string({ message: "Debe ingresar el nombre del servicio." })
+			.min(5, { message: "El título debe ser mayor a 5 caracteres." }),
+		price: z
+			.number({ message: "El precio debe ser un número." })
+			.min(100, { message: "El precio debe ser mayor a $100." }),
 		description: z
-			.string()
-			.min(1, { message: "La descripción es obligatoria." })
+			.string({ message: "La descripción es obligatoria." })
+			.min(100, { message: "La descripción debe ser de al menos 100 caracteres." })
 			.max(500, { message: "La descripción no puede exceder los 500 caracteres." }),
 	});
 
