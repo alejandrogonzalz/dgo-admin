@@ -1,7 +1,7 @@
 .sx-react-calendar-wrapper {
 	width: calc(100vw-var(--sidebar-width));
 	height: 800px;
-	max-height: 80vh;
+	max-height: 85vh;
 }
 
 .sx__calendar-wrapper {
@@ -30,4 +30,16 @@
 
 .sx__event-modal {
 	border-radius: 0.5rem;
+}
+
+@media (max-width: 400px) {
+	.sx__event-modal {
+		max-width: 350px;
+	}
+}
+
+@media (max-width: 350px) {
+	.sx__event-modal {
+		max-width: 300px;
+	}
 }

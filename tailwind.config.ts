@@ -9,15 +9,6 @@ const config: Config = {
 				clash: ["Clash"],
 			},
 			colors: {
-				"primary-black": "#26292F",
-				"secondary-black": "#616774",
-				"primary-blue": "#2C85AF",
-				"secondary-blue": "#9AB6C3",
-				"tertiary-blue": "#CBDAE2",
-				"primary-gray": "#DEDEDF",
-				"secondary-gray": "#f6f6f7",
-				"primary-green": "#E1EBE3",
-				"primary-yellow": "#FFF4C1",
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				card: {
@@ -70,6 +61,21 @@ const config: Config = {
 					"accent-foreground": "hsl(var(--sidebar-accent-foreground))",
 					border: "hsl(var(--sidebar-border))",
 					ring: "hsl(var(--sidebar-ring))",
+				},
+				violet: {
+					main: "hsl(var(--violet-main))",
+					container: "hsl(var(--violet-container))",
+					onContainer: "hsl(var(--violet-on-container))",
+				},
+				green: {
+					main: "hsl(var(--green-main))",
+					container: "hsl(var(--green-container))",
+					onContainer: "hsl(var(--green-on-container))",
+				},
+				blue: {
+					main: "hsl(var(--blue-main))",
+					container: "hsl(var(--blue-container))",
+					onContainer: "hsl(var(--blue-on-container))",
 				},
 			},
 			screens: {

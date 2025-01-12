@@ -5,6 +5,7 @@ import { formatDateRange, joinWithAmpersand } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { CalendarEventExternal } from "@schedule-x/calendar";
 import { Pencil, Trash2 } from "lucide-react";
+import { useTheme } from "../theme-provider";
 
 export function EventModal({ calendarEvent }: CalendarEventExternal) {
 	return (
@@ -17,9 +18,16 @@ export function EventModal({ calendarEvent }: CalendarEventExternal) {
 					<Pencil />
 				</Button>
 			</div>
+
 			<CardHeader className="mb-5 mr-[72px] grid grid-cols-[30px_1fr] items-start justify-start">
 				<span className="mt-1 flex h-auto w-auto items-start">
-					<div className="aspect-square w-[18px] rounded-sm bg-black" />
+					<div
+						className={cn("aspect-square w-[18px] rounded-sm bg-foreground", {
+							"bg-violet-main": calendarEvent?.calendarId === "1",
+							"bg-green-main": calendarEvent?.calendarId === "2",
+							"bg-blue-main": calendarEvent?.calendarId === "3",
+						})}
+					/>
 				</span>
 
 				<strong className="!m-0 text-lg font-medium">{calendarEvent?.title}</strong>
