@@ -62,6 +62,8 @@ body {
 		--foreground: 0 0% 98%;
 		--secondary: 222.2 47.4% 11.2%;
 		--secondary-foreground: 210 40% 96.1%;
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 0 0% 100%;
 		--sidebar-background: 240 5.9% 10%;
 		--sidebar-foreground: 240 4.8% 95.9%;
 		--sidebar-primary: 224.3 76.3% 48%;

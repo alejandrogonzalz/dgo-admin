@@ -22,18 +22,18 @@ const items = [
 		icon: Home,
 	},
 	{
+		title: "Servicios",
+		url: routes.SERVICES,
+		icon: Inbox,
+	},
+	{
 		title: "Cargar servicios",
 		url: routes.UPLOAD_SERVICES,
 		icon: Upload,
 	},
 	{
-		title: "Bandeja de entrada",
-		url: "",
-		icon: Inbox,
-	},
-	{
 		title: "Calendario",
-		url: "",
+		url: routes.CALENDAR,
 		icon: Calendar,
 	},
 	{

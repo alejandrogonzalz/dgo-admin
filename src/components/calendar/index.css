@@ -1,0 +1,29 @@
+.sx-react-calendar-wrapper {
+	width: calc(100vw-var(--sidebar-width));
+	height: 800px;
+	max-height: 80vh;
+}
+
+.sx__calendar-wrapper {
+	scrollbar-color: black transparent;
+}
+
+.is-dark .sx__calendar-wrapper {
+	scrollbar-color: #fff transparent;
+}
+
+.sx__event-modal {
+	scrollbar-width: thin;
+}
+
+.sx__view-container {
+	scrollbar-width: thin;
+}
+
+:root {
+	--sx-color-background: #fafafa;
+}
+
+.is-dark {
+	--sx-color-background: #18181b;
+}
