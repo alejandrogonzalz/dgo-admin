@@ -23,6 +23,8 @@ const config: Config = {
 				card: {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
+					"event-modal": "hsl(var(--event-modal))",
+					"event-modal-foreground": "hsl(var(--event-modal-foreground))",
 				},
 				popover: {
 					DEFAULT: "hsl(var(--popover))",

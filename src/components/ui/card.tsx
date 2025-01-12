@@ -8,6 +8,7 @@ const cardVariants = cva("rounded-md border bg-card p-5 text-card-foreground sha
 		variant: {
 			default: "rounded-md border bg-card p-3 text-card-foreground shadow lg:rounded-lg",
 			outline: "bg-transparent border-sidebar-border text-foreground shadow-none",
+			calendar: "border-none shadow shadow-lg bg-red text-card-event-modal-foreground",
 		},
 	},
 	defaultVariants: {

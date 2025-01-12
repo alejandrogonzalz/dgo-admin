@@ -56,8 +56,12 @@ body {
 		--sidebar-width: 16rem;
 		--navbar-height-lg: 60px;
 		--navbar-height-sm: 45px;
+		--event-modal: #fafafa;
+		--event-modal-foreground: black;
 	}
 	.dark {
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
 		--secondary: 222.2 47.4% 11.2%;
@@ -75,6 +79,8 @@ body {
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
 		--inverse-input: 0 0% 3.9%;
+		--event-modal: #2b2930;
+		--event-modal-foreground: #fafafa;
 	}
 }
 @layer base {
@@ -83,5 +89,15 @@ body {
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+}
+@layer utilities {
+	.scrollbar-thin {
+		scrollbar-width: thin;
+	}
+
+	.scrollbar-thin::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
 	}
 }

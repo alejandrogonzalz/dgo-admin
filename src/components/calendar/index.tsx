@@ -5,6 +5,7 @@ import {
 	createViewMonthGrid,
 	createViewWeek,
 } from "@schedule-x/calendar";
+import { createCurrentTimePlugin } from "@schedule-x/current-time";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
 
 import { createEventsServicePlugin } from "@schedule-x/events-service";
@@ -15,6 +16,7 @@ import "./index.css";
 
 import { useEffect, useState } from "react";
 import { useTheme } from "../theme-provider";
+import { EventModal } from "./event-modal";
 
 interface CalendarComponentProps {
 	events: CalendarEventExternal[] | undefined;
@@ -27,14 +29,15 @@ export function CalendarComponent({ events }: CalendarComponentProps) {
 
 	const calendar = useCalendarApp({
 		views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-		events: events,
-		plugins: [eventsService, eventModal],
+		events,
+		plugins: [eventsService, eventModal, createCurrentTimePlugin()],
 		theme: "shadcn",
 		locale: "es-ES",
 	});
 
 	useEffect(() => {
 		eventsService.getAll();
+		console.log(eventsService);
 	}, []);
 
 	useEffect(() => {
@@ -44,7 +47,7 @@ export function CalendarComponent({ events }: CalendarComponentProps) {
 
 	return (
 		<div className="mt-5">
-			<ScheduleXCalendar calendarApp={calendar} />
+			<ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: EventModal }} />
 		</div>
 	);
 }

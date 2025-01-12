@@ -27,3 +27,7 @@
 .is-dark {
 	--sx-color-background: #18181b;
 }
+
+.sx__event-modal {
+	border-radius: 0.5rem;
+}
