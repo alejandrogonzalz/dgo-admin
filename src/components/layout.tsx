@@ -47,7 +47,7 @@ const NavbarSmallDevices = ({ isScrolled }: { isScrolled: boolean }) => {
 	return (
 		<nav
 			className={cn(
-				"absolute top-0 z-40 flex h-[45px] w-full items-center justify-between px-5 py-3 lg:hidden",
+				"absolute top-0 z-40 flex h-[45px] w-full items-center justify-between px-5 py-3 md:hidden",
 				"duration-400 border border-l-0 border-r-0 border-t-0 border-b-sidebar-border transition-colors sm:h-[60px]",
 				{
 					"bg-sidebar": !isScrolled,
@@ -68,7 +68,7 @@ const NavbarLargeDevices = ({ isScrolled }: { isScrolled: boolean }) => {
 	return (
 		<nav
 			className={cn(
-				"top-0 z-40 hidden h-navbar-height-lg w-full border border-l-0 border-r-0 border-t-0 border-b-sidebar-border lg:absolute lg:flex",
+				"top-0 z-40 hidden h-navbar-height-lg w-full border border-l-0 border-r-0 border-t-0 border-b-sidebar-border md:absolute md:flex",
 				"transition-colors duration-200 ease-linear",
 				{ "border-sidebar-border": theme === "light" },
 			)}

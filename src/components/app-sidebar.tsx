@@ -1,4 +1,5 @@
 import * as Icons from "@/components/com/icons";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
 	Sidebar,
 	SidebarContent,
@@ -8,14 +9,35 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	SidebarMenuSub,
 } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 import { routes } from "@/routes";
-import { Calendar, Home, Inbox, LogOut, Settings, Upload } from "lucide-react";
+import { Calendar, ChevronRight, Home, Inbox, LogOut, Settings, Upload } from "lucide-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "./theme-provider";
 
 // Menu items.
-const items = [
+
+interface BaseItem {
+	title: string;
+	icon: React.ComponentType;
+}
+
+interface LinkItem extends BaseItem {
+	url: string;
+	items?: never;
+}
+
+interface CollapsibleItem extends BaseItem {
+	items: Item[];
+	url?: never;
+}
+
+type Item = LinkItem | CollapsibleItem;
+
+const items: Item[] = [
 	{
 		title: "Inicio",
 		url: routes.HOME,
@@ -23,13 +45,19 @@ const items = [
 	},
 	{
 		title: "Servicios",
-		url: routes.SERVICES,
 		icon: Inbox,
-	},
-	{
-		title: "Cargar servicios",
-		url: routes.UPLOAD_SERVICES,
-		icon: Upload,
+		items: [
+			{
+				title: "Lista de servicios",
+				url: routes.SERVICES,
+				icon: Inbox,
+			},
+			{
+				title: "Agregar servicio",
+				url: routes.UPLOAD_SERVICES,
+				icon: Upload,
+			},
+		],
 	},
 	{
 		title: "Calendario",
@@ -48,6 +76,14 @@ const items = [
 	},
 ];
 
+function isLinkItem(item: Item): item is LinkItem {
+	return "url" in item;
+}
+
+function isCollapsibleItem(item: Item): item is CollapsibleItem {
+	return "items" in item;
+}
+
 export function AppSidebar() {
 	const { theme } = useTheme();
 	return (
@@ -64,16 +100,14 @@ export function AppSidebar() {
 					</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{items.map((item) => (
-								<SidebarMenuItem key={item.title}>
-									<SidebarMenuButton asChild>
-										<Link to={{ pathname: item.url }}>
-											<item.icon />
-											<span>{item.title}</span>
-										</Link>
-									</SidebarMenuButton>
-								</SidebarMenuItem>
-							))}
+							{items.map((item) => {
+								if (isLinkItem(item)) {
+									return <SidebarLinkItem key={item.title} title={item.title} url={item.url} icon={item.icon} />;
+								} else
+									return (
+										<SidebarCollapsibleItem key={item.title} title={item.title} icon={item.icon} items={item.items} />
+									);
+							})}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
@@ -81,3 +115,48 @@ export function AppSidebar() {
 		</Sidebar>
 	);
 }
+
+const SidebarLinkItem = ({ title, url, icon: Icon }: LinkItem) => {
+	return (
+		<SidebarMenuItem key={title}>
+			<SidebarMenuButton asChild>
+				<Link to={{ pathname: url }}>
+					<Icon />
+					<span>{title}</span>
+				</Link>
+			</SidebarMenuButton>
+		</SidebarMenuItem>
+	);
+};
+
+const SidebarCollapsibleItem = ({ title, icon: Icon, items }: CollapsibleItem) => {
+	const [open, setOpen] = useState(true);
+
+	return (
+		<Collapsible open={open} onOpenChange={setOpen}>
+			<SidebarMenuItem>
+				<CollapsibleTrigger asChild>
+					<SidebarMenuButton className="relative">
+						<Icon />
+						<span>{title}</span>
+						<ChevronRight
+							className={cn("absolute right-2 transform transition-transform duration-300", {
+								"rotate-90": open,
+							})}
+						/>
+					</SidebarMenuButton>
+				</CollapsibleTrigger>
+
+				<CollapsibleContent>
+					<SidebarMenuSub>
+						{items.map((item) => {
+							if (isLinkItem(item)) {
+								return <SidebarLinkItem key={item.title} title={item.title} url={item.url} icon={item.icon} />;
+							} else return null;
+						})}
+					</SidebarMenuSub>
+				</CollapsibleContent>
+			</SidebarMenuItem>
+		</Collapsible>
+	);
+};

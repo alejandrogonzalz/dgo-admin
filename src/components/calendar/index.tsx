@@ -17,7 +17,6 @@ import "@schedule-x/theme-shadcn/dist/index.css";
 import "./index.css";
 
 import { format, sub } from "date-fns";
-import { parse } from "path";
 import { useEffect, useState } from "react";
 import { useTheme } from "../theme-provider";
 import { EventModal } from "./event-modal";
@@ -84,11 +83,12 @@ export function CalendarComponent({ events }: CalendarComponentProps) {
 				},
 			},
 		},
+		callbacks: {
+			onEventUpdate(event) {
+				// console.log(event);
+			},
+		},
 	});
-
-	useEffect(() => {
-		eventsService.getAll();
-	}, []);
 
 	useEffect(() => {
 		if (theme === "dark") calendar.setTheme("dark");
