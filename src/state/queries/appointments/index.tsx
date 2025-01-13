@@ -16,6 +16,7 @@ export const useGetAppointments = (
 			end,
 		});
 	}, [start, end]);
+
 	const { data, ...rest } = useQuery({
 		queryKey: servicesKeys.getAppointments(start, end).queryKey,
 		queryFn: async () => {

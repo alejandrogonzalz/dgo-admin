@@ -16,10 +16,11 @@ import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
 import "@schedule-x/theme-shadcn/dist/index.css";
 import "./index.css";
 
+import { useTheme } from "@/components/theme-provider";
+import { Skeleton } from "@/components/ui/skeleton";
 import { GetAppointmentsParamsSchema } from "@/state/queries/appointments/schema";
 import { format, sub } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useTheme } from "../theme-provider";
 import { EventModal } from "./event-modal";
 
 interface CalendarComponentProps {
@@ -85,6 +86,10 @@ export function CalendarComponent({ events, onRangeChange }: CalendarComponentPr
 			},
 		},
 		callbacks: {
+			// onEventUpdate(event) {
+			// 	console.log(event);
+			// },
+
 			onRangeUpdate(range) {
 				if (onRangeChange) {
 					onRangeChange(range);
@@ -94,19 +99,23 @@ export function CalendarComponent({ events, onRangeChange }: CalendarComponentPr
 	});
 
 	useEffect(() => {
-		if (events && events.length > 0) {
+		if (events && eventsService && events.length > 0) {
 			eventsService.set(events);
 		}
-	}, [events]);
+	}, [events, eventsService]);
 
 	useEffect(() => {
-		if (theme === "dark") calendar.setTheme("dark");
-		if (theme === "light") calendar.setTheme("light");
-	}, [theme]);
+		if (calendar && theme === "dark") calendar.setTheme("dark");
+		if (calendar && theme === "light") calendar.setTheme("light");
+	}, [theme, calendar]);
 
 	return (
 		<div className="mt-3">
-			<ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: EventModal }} />
+			{calendar ? (
+				<ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: EventModal }} />
+			) : (
+				<Skeleton className="w-[calc(100vw-var(--sidebar-width)] h-800px max-h-[85vh]" />
+			)}
 		</div>
 	);
 }

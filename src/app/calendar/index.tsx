@@ -1,12 +1,9 @@
 import { CalendarComponent } from "@/components/calendar";
 import { CardHeader, CardTitle } from "@/components/ui/card";
-import { DATE_FORMAT, getCurrentWeekRange } from "@/lib/format";
+import { getCurrentWeekRange } from "@/lib/format";
 import { useGetAppointments } from "@/state/queries/appointments";
-import { GetAppointmentsParamsSchema, zGetAppointmentsParamsSchema } from "@/state/queries/appointments/schema";
-import { CalendarEventExternal } from "@schedule-x/calendar";
-import { format } from "date-fns";
-import { useCallback, useState } from "react";
-import { string } from "zod";
+import { GetAppointmentsParamsSchema } from "@/state/queries/appointments/schema";
+import { useState } from "react";
 
 export function CalendarPage() {
 	const [dateRange, setDateRange] = useState<GetAppointmentsParamsSchema>(() => getCurrentWeekRange());
@@ -17,7 +14,7 @@ export function CalendarPage() {
 			<CardHeader className="text-xl">
 				<CardTitle>Calendario</CardTitle>
 			</CardHeader>
-			<CalendarComponent events={data} onRangeChange={setDateRange} />
+			<CalendarComponent events={data || []} onRangeChange={setDateRange} />
 		</div>
 	);
 }
