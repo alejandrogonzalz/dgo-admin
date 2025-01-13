@@ -44,6 +44,11 @@ const items: Item[] = [
 		icon: Home,
 	},
 	{
+		title: "Calendario",
+		url: routes.CALENDAR,
+		icon: Calendar,
+	},
+	{
 		title: "Servicios",
 		icon: Inbox,
 		items: [
@@ -58,11 +63,6 @@ const items: Item[] = [
 				icon: Upload,
 			},
 		],
-	},
-	{
-		title: "Calendario",
-		url: routes.CALENDAR,
-		icon: Calendar,
 	},
 	{
 		title: "Configuración",

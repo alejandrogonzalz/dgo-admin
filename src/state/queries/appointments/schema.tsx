@@ -33,3 +33,26 @@ export const zAppointmentSchema = () =>
 export const zAppointmentListSchema = () => z.array(zAppointmentSchema());
 export type AppointmentSchema = z.infer<ReturnType<typeof zAppointmentSchema>>;
 export type AppointmentListSchema = z.infer<ReturnType<typeof zAppointmentListSchema>>;
+
+export const zGetAppointmentsParamsSchema = () =>
+	z.object({
+		start: z.string().refine(
+			(val) => {
+				const parsedDate = parse(val, "yyyy-MM-dd HH:mm", new Date());
+				return isValid(parsedDate);
+			},
+			{
+				message: 'Invalid start date format. Expected "YYYY-MM-DD HH:mm".',
+			},
+		),
+		end: z.string().refine(
+			(val) => {
+				const parsedDate = parse(val, "yyyy-MM-dd HH:mm", new Date());
+				return isValid(parsedDate);
+			},
+			{
+				message: 'Invalid end date format. Expected "YYYY-MM-DD HH:mm".',
+			},
+		),
+	});
+export type GetAppointmentsParamsSchema = z.infer<ReturnType<typeof zGetAppointmentsParamsSchema>>;

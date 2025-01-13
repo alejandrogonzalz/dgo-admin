@@ -1,11 +1,10 @@
 import * as Icons from "@/components/com/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { formatDateRange, joinWithAmpersand } from "@/lib/format";
+import { formatDateRangeToString, joinWithAmpersand } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { CalendarEventExternal } from "@schedule-x/calendar";
 import { Pencil, Trash2 } from "lucide-react";
-import { useTheme } from "../theme-provider";
 
 export function EventModal({ calendarEvent }: CalendarEventExternal) {
 	return (
@@ -35,7 +34,7 @@ export function EventModal({ calendarEvent }: CalendarEventExternal) {
 			<CardContent>
 				<EventItem
 					icon={<Icons.CalendarClock />}
-					label={formatDateRange(calendarEvent?.start, calendarEvent?.end)}
+					label={formatDateRangeToString(calendarEvent?.start, calendarEvent?.end)}
 					textSize="8px"
 				/>
 				<EventItem icon={<Icons.CalendarPerson />} label={joinWithAmpersand(calendarEvent?.people)} />

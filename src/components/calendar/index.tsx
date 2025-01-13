@@ -16,16 +16,18 @@ import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
 import "@schedule-x/theme-shadcn/dist/index.css";
 import "./index.css";
 
+import { GetAppointmentsParamsSchema } from "@/state/queries/appointments/schema";
 import { format, sub } from "date-fns";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "../theme-provider";
 import { EventModal } from "./event-modal";
 
 interface CalendarComponentProps {
 	events: CalendarEventExternal[] | undefined;
+	onRangeChange?: React.Dispatch<React.SetStateAction<GetAppointmentsParamsSchema>>;
 }
 
-export function CalendarComponent({ events }: CalendarComponentProps) {
+export function CalendarComponent({ events, onRangeChange }: CalendarComponentProps) {
 	const { theme } = useTheme();
 	const eventsService = useState(() => createEventsServicePlugin())[0];
 	const eventModal = useState(() => createEventModalPlugin())[0];
@@ -38,7 +40,6 @@ export function CalendarComponent({ events }: CalendarComponentProps) {
 
 	const calendar = useCalendarApp({
 		views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-		events,
 		plugins: [eventsService, eventModal, createCurrentTimePlugin(), scrollController, dragAndDropPlugin],
 		theme: "shadcn",
 		locale: "es-ES",
@@ -84,11 +85,19 @@ export function CalendarComponent({ events }: CalendarComponentProps) {
 			},
 		},
 		callbacks: {
-			onEventUpdate(event) {
-				// console.log(event);
+			onRangeUpdate(range) {
+				if (onRangeChange) {
+					onRangeChange(range);
+				}
 			},
 		},
 	});
+
+	useEffect(() => {
+		if (events && events.length > 0) {
+			eventsService.set(events);
+		}
+	}, [events]);
 
 	useEffect(() => {
 		if (theme === "dark") calendar.setTheme("dark");
